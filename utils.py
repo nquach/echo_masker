@@ -2,15 +2,12 @@ import os
 import numpy as np
 import pydicom as dcm
 import pickle as pkl
-from keras.preprocessing.image import ImageDataGenerator
-from skimage.measure import label, regionprops, find_contours
-from skimage.morphology import convex_hull_image, disk, binary_erosion, binary_dilation, remove_small_objects
-import skimage.io as io
-import skimage.transform as trans
+import skimage.io as io  
+import skimage.transform as trans 
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-def safe_makedir(path):
+def safe_makedir(path): 
 	if not os.path.exists(path):
 		os.makedirs(path)
 
@@ -21,10 +18,11 @@ def num_img_in_direc(path):
 
 #Given a Numpy arr, resize to dimensions specified by tuple new_size. Returns resized array. Use skimage.transform.resize
 #can assume img is 2D (no channel dim)
-def resize_img(img_arr, new_size):
+def resize_img(img_arr, new_size):  
 	#COMPLETE ME
 	pass
 
+# imagefile = PyDicom Object
 def dicom2imglist(imagefile):
 	'''
 	converts raw dicom to numpy arrays

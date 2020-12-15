@@ -30,12 +30,12 @@ def trainGenerator(batch_size,image_folder,mask_folder,aug_dict,image_color_mode
 		seed = seed)
 	train_generator = zip(image_generator, mask_generator)
 	for (img,mask) in train_generator:
-		if np.max(img) > 1:
+		if np.amax(img) > 1:
 			img = img / 255
 		yield (img,mask)
 
 if __name__ == '__main__':
-	root_direc = ''
+	root_direc = ''  
 	img_direc = os.path.join(root_direc, 'images')
 	label_direc = os.path.join(root_direc, 'labels')
 	ckpt_direc = ''
@@ -57,6 +57,8 @@ if __name__ == '__main__':
 
 	input_size = (384,384,1)
 
+	lr = 1e-5
+
 	num_train_img = num_img_in_direc(os.path.join(train_direc, img_direc))
 
 	steps_per_epoch = num_train_img//batch_size
@@ -66,7 +68,7 @@ if __name__ == '__main__':
 
 	gen = trainGenerator(batch_size, img_direc, label_direc, data_gen_args, target_size=img_size, seed=1)
 
-	model = unet(pretrained_weights = None, input_size = input_size, lr=1e-5)
+	model = unet(pretrained_weights = None, input_size = input_size, lr=lr)
 
 	model_checkpoint = ModelCheckpoint(ckpt_path, monitor='loss',verbose=1, save_best_only=True)
 	history = model.fit_generator(generator=gen,steps_per_epoch=steps_per_epoch, epochs=num_epochs,callbacks=[model_checkpoint])

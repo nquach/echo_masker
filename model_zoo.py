@@ -17,7 +17,7 @@ def mean_iou(y_true, y_pred):
        score = tf.identity(score)
    return score
 
-def unet(pretrained_weights = None,input_size = (384,384,1), lr=1e-4):
+def unet(pretrained_weights = None, input_size = (384,384,1), lr=1e-4):
 	inputs = Input(input_size)
 	conv1 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(inputs)
 	conv1 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv1)
